@@ -1,25 +1,39 @@
 {
   "expo": {
-    "name": "tinyFest",
+    "name": "TinyFest",
     "slug": "tinyFest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/brand/smiley-mascot.png",
     "userInterfaceStyle": "light",
+    "backgroundColor": "#FFF8EC",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tinyfest.app"
     },
     "android": {
+      "package": "com.tinyfest.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#FFF8EC",
+        "foregroundImage": "./assets/brand/smiley-mascot.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/brand/smiley-mascot.png"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/brand/world-badge.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#FFF8EC"
+        }
+      ],
+      "expo-audio",
+      "expo-font"
+    ]
   }
 }
