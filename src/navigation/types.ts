@@ -5,7 +5,8 @@ export type ActivityKind = PaintingMode | "jigsaw";
 
 export type RootStackParamList = {
   Home: undefined;
-  StoryTime: undefined;
+  Memory: undefined;
+  MemoryGame: { levelId: string };
   PuzzleCategories: undefined;
   PuzzleGame: { category: PuzzleCategoryId };
   Painting: undefined;

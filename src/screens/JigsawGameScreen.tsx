@@ -7,6 +7,8 @@ import ScreenBackground from "../components/ScreenBackground";
 import BigButton from "../components/BigButton";
 import PuzzleIllustration from "../components/PuzzleIllustration";
 import ConfettiBurst from "../components/ConfettiBurst";
+import PauseButton from "../components/PauseButton";
+import PauseOverlay from "../components/PauseOverlay";
 import { PUZZLE_ITEMS } from "../data/puzzleItems";
 import { colors, radii, spacing, typography } from "../theme/theme";
 
@@ -32,9 +34,10 @@ export default function JigsawGameScreen({ navigation, route }: Props) {
   const [order, setOrder] = useState<number[]>(() => shuffledOrder());
   const [selected, setSelected] = useState<number | null>(null);
   const [solved, setSolved] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   const onTapSlot = (slot: number) => {
-    if (solved) return;
+    if (solved || paused) return;
     if (selected === null) {
       setSelected(slot);
       return;
@@ -68,7 +71,10 @@ export default function JigsawGameScreen({ navigation, route }: Props) {
           <Pressable onPress={goToPicker} hitSlop={12}>
             <Text style={styles.backLink}>‹ Jigsaw</Text>
           </Pressable>
-          <Text style={styles.itemLabel}>{item.label}</Text>
+          <View style={styles.topRowRight}>
+            <PauseButton onPress={() => setPaused(true)} />
+            <Text style={styles.itemLabel}>{item.label}</Text>
+          </View>
         </View>
 
         <Text style={styles.hint}>{solved ? "You did it!" : "Tap two pieces to swap them"}</Text>
@@ -100,6 +106,7 @@ export default function JigsawGameScreen({ navigation, route }: Props) {
         ) : null}
       </View>
       {solved && <ConfettiBurst />}
+      {paused && <PauseOverlay onResume={() => setPaused(false)} onHome={() => navigation.popToTop()} />}
     </ScreenBackground>
   );
 }
@@ -122,6 +129,11 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.coral,
     fontWeight: "700",
+  },
+  topRowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
   },
   itemLabel: {
     ...typography.title,

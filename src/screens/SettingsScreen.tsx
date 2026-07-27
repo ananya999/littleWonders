@@ -34,7 +34,7 @@ export default function SettingsScreen({ navigation }: Props) {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Reset progress</Text>
           <Text style={styles.cardBody}>
-            This clears your streak and sticker collection. This cannot be undone.
+            This clears your sticker collection and puzzle stars. This cannot be undone.
           </Text>
           {confirmingReset ? (
             <View style={styles.confirmRow}>

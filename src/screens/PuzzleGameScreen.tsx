@@ -7,6 +7,8 @@ import ScreenBackground from "../components/ScreenBackground";
 import BigButton from "../components/BigButton";
 import PuzzleIllustration from "../components/PuzzleIllustration";
 import ConfettiBurst from "../components/ConfettiBurst";
+import PauseButton from "../components/PauseButton";
+import PauseOverlay from "../components/PauseOverlay";
 import { buildRounds, PUZZLE_CATEGORIES } from "../data/puzzleItems";
 import { PuzzleItemId } from "../data/puzzleTypes";
 import { usePuzzleSounds } from "../hooks/usePuzzleSounds";
@@ -28,6 +30,7 @@ export default function PuzzleGameScreen({ navigation, route }: Props) {
   const [wrongId, setWrongId] = useState<PuzzleItemId | null>(null);
   const [phase, setPhase] = useState<Phase>("playing");
   const [stars, setStars] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
   const { play: playMatchSound } = usePuzzleSounds();
   const { width } = useWindowDimensions();
   const isTablet = width >= 700;
@@ -63,7 +66,7 @@ export default function PuzzleGameScreen({ navigation, route }: Props) {
   const shakeTranslate = shakeAnim.interpolate({ inputRange: [-1, 0, 1], outputRange: [-8, 0, 8] });
 
   const onPickOption = (optionId: PuzzleItemId) => {
-    if (solved) return;
+    if (solved || paused) return;
     if (optionId === round.target.id) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
       playMatchSound(optionId);
@@ -123,9 +126,12 @@ export default function PuzzleGameScreen({ navigation, route }: Props) {
           <Pressable onPress={() => navigation.goBack()} hitSlop={12}>
             <Text style={styles.backLink}>‹ {meta.title}</Text>
           </Pressable>
-          <Text style={styles.progressText}>
-            {roundIndex + 1} of {rounds.length}
-          </Text>
+          <View style={styles.topRowRight}>
+            <PauseButton onPress={() => setPaused(true)} />
+            <Text style={styles.progressText}>
+              {roundIndex + 1} of {rounds.length}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.topSection}>
@@ -179,6 +185,7 @@ export default function PuzzleGameScreen({ navigation, route }: Props) {
           )}
         </View>
       </View>
+      {paused && <PauseOverlay onResume={() => setPaused(false)} onHome={() => navigation.popToTop()} />}
     </ScreenBackground>
   );
 }
@@ -194,7 +201,13 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
+  },
+  topRowRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
   },
   topSection: {
     flex: 1,

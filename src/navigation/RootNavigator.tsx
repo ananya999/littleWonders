@@ -3,7 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./types";
 import HomeScreen from "../screens/HomeScreen";
-import StoryTimeScreen from "../screens/StoryTimeScreen";
+import MemoryLevelsScreen from "../screens/MemoryLevelsScreen";
+import MemoryGameScreen from "../screens/MemoryGameScreen";
 import PuzzleCategoriesScreen from "../screens/PuzzleCategoriesScreen";
 import PuzzleGameScreen from "../screens/PuzzleGameScreen";
 import PaintingModesScreen from "../screens/PaintingModesScreen";
@@ -21,7 +22,8 @@ export default function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="StoryTime" component={StoryTimeScreen} />
+        <Stack.Screen name="Memory" component={MemoryLevelsScreen} />
+        <Stack.Screen name="MemoryGame" component={MemoryGameScreen} />
         <Stack.Screen name="PuzzleCategories" component={PuzzleCategoriesScreen} />
         <Stack.Screen name="PuzzleGame" component={PuzzleGameScreen} />
         <Stack.Screen name="Painting" component={PaintingModesScreen} />

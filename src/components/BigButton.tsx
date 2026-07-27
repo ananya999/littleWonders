@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { Pressable, StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 import * as Haptics from "expo-haptics";
 import { useTapSound } from "../hooks/useUiSounds";
 import { colors, radii, spacing } from "../theme/theme";
@@ -12,6 +12,7 @@ interface Props {
   size?: "large" | "medium" | "small";
   icon?: React.ReactNode;
   style?: ViewStyle;
+  labelStyle?: TextStyle;
   disabled?: boolean;
 }
 
@@ -23,6 +24,7 @@ export default function BigButton({
   size = "large",
   icon,
   style,
+  labelStyle,
   disabled,
 }: Props) {
   const playTap = useTapSound();
@@ -52,6 +54,7 @@ export default function BigButton({
             styles.label,
             { color: textColor },
             size === "small" && styles.labelSmall,
+            labelStyle,
           ]}
         >
           {label}

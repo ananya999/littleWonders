@@ -6,7 +6,7 @@ import ScreenBackground from "../components/ScreenBackground";
 import BigButton from "../components/BigButton";
 import GameCard from "../components/GameCard";
 import PopIn from "../components/PopIn";
-import PromptIllustration from "../components/PromptIllustration";
+import MemoryCardsIcon from "../components/MemoryCardsIcon";
 import PuzzlePieceCharacter from "../components/PuzzlePieceCharacter";
 import PaintPaletteIcon from "../components/PaintPaletteIcon";
 import JigsawPiecesIcon from "../components/JigsawPiecesIcon";
@@ -16,7 +16,7 @@ import { colors, radii, spacing, typography } from "../theme/theme";
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: Props) {
-  const { completedToday, earnedStickerIds, puzzleStars } = useProgress();
+  const { earnedStickerIds, puzzleStars } = useProgress();
   const bounce = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -45,11 +45,11 @@ export default function HomeScreen({ navigation }: Props) {
         <View style={styles.cardsGrid}>
           <PopIn style={styles.cardWrap} delay={0}>
             <GameCard
-              title="Story Time"
-              subtitle={completedToday ? "Done for today!" : "Today's 5-min moment"}
+              title="Memory"
+              subtitle="Match the pairs"
               color={colors.coral}
-              icon={<PromptIllustration scene="bird-hat" size={70} />}
-              onPress={() => navigation.navigate("StoryTime")}
+              icon={<MemoryCardsIcon size={70} />}
+              onPress={() => navigation.navigate("Memory")}
             />
           </PopIn>
           <PopIn style={styles.cardWrap} delay={80}>
